@@ -101,10 +101,12 @@ const TodoList: React.FC<TodoListProps> = ({
               setNewTodo("");
             }
           }}
+          name="addTodo"
           placeholder="Enter new todo"
           autoFocus
         />
         <button
+          name="addTodoButton"
           onClick={handleAdd}
           className="flex items-center p-2 bg-blue-500 text-white rounded"
         >
