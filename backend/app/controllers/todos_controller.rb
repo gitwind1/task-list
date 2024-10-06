@@ -7,18 +7,27 @@ class TodosController < ApplicationController
   end
 
   def create
-    todo_service = TodoService.new(@list_id)
+    if @list_id.length > 300
+      return render json: []
+    elsif params[:text].length > 1000 || params[:text].split.any? { |word| word.length > 25 }
+      return render json: TodoService.new(@list_id).all
+    end
+
     new_todo = {
         id: SecureRandom.uuid,
         text: params[:text],
         completed: false
     }
-    todos = todo_service.add(new_todo)
+    todos = TodoService.new(@list_id).add(new_todo)
     broadcast(todos)
     render json: new_todo, status: :created
   end
 
   def update
+    text = todo_params[:text]
+    if text && (@list_id.length > 300 || text.length > 1000 || text.split.any? { |word| word.length > 25 })
+      return render json: TodoService.new(@list_id).all
+    end
     todo_service = TodoService.new(@list_id)
     todo_id = params[:id]
     attributes = todo_params

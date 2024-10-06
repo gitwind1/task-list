@@ -33,6 +33,11 @@ const TodoList: React.FC<TodoListProps> = ({
 
   const handleAdd = () => {
     if (newTodo.trim() === "") return;
+    if (newTodo.length > 1000 || newTodo.split(' ').some(word => word.length > 25)) {
+      alert('Words should not be longer than 25 characters');
+      setNewTodo("");
+      return ;
+    }
     updating();
     fetch(apiUrl + listId + "/todos", {
       method: "POST",
@@ -71,6 +76,10 @@ const TodoList: React.FC<TodoListProps> = ({
   };
 
   const handleEdit = (id: string, newText: string) => {
+    if (newText.length > 1000 || newText.split(' ').some(word => word.length > 25)) {
+      alert('Words should not be longer than 25 characters');
+      return ;
+    }
     updating();
     fetch(apiUrl + listId + "/todos/" + id, {
       method: "PATCH",

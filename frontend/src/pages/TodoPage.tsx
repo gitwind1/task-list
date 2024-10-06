@@ -11,7 +11,7 @@ interface Todo {
 
 const TodoPage: React.FC = () => {
   const currentPath = window.location.pathname
-  if (currentPath.length < 3 || currentPath.substring(1).includes("/")) {
+  if (currentPath.length < 3 || currentPath.length > 300 || currentPath.substring(1).includes("/")) {
     window.history.replaceState({}, "", window.location.origin + "/" + uuidv4().substring(26));
   }
 
