@@ -32,8 +32,8 @@ const TodoList: React.FC<TodoListProps> = ({
   }, [initialTodos]);
 
   const handleAdd = () => {
-    updating();
     if (newTodo.trim() === "") return;
+    updating();
     fetch(apiUrl + listId + "/todos", {
       method: "POST",
       headers: {
@@ -89,7 +89,7 @@ const TodoList: React.FC<TodoListProps> = ({
   });
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-4 border rounded shadow">
+    <div className="max-w-md mx-auto mt-1 p-4 border rounded shadow">
       <div className="flex items-center justify-between mb-4">
         <input
           className="flex-1 border p-2 rounded mr-2"
