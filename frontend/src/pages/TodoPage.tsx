@@ -12,23 +12,23 @@ interface Todo {
 const TodoPage: React.FC = () => {
   const currentPath = window.location.pathname
   if (currentPath.length < 3 || currentPath.length > 300 || currentPath.substring(1).includes("/")) {
-    window.history.replaceState({}, "", window.location.origin + "/" + uuidv4().substring(26));
+    window.location.href = window.location.origin + "/" + uuidv4().substring(26)
   }
 
   const listId: string = currentPath.substring(1);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isConnected, setIsConnected] = useState(false);
-  const [copied, setCopied] = useState(false);
+  // const [copied, setCopied] = useState(false);
 
   const disconnect = () => {
     setIsConnected(false)
   }
 
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(window.location.href);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000)
-  };
+  // const handleCopy = async () => {
+  //   await navigator.clipboard.writeText(window.location.href);
+  //   setCopied(true);
+  //   setTimeout(() => setCopied(false), 2000)
+  // };
 
   useEffect(() => {
     fetch('http://localhost:3000/lists/' + listId + '/todos')
@@ -61,11 +61,11 @@ const TodoPage: React.FC = () => {
         </p>
         <div className="flex items-center bg-white p-2 rounded-md shadow-sm">
           <span className="text-gray-600 text-sm break-all flex-grow">{window.location.href}</span>
-          <button
+          {/* <button
             onClick={handleCopy}
             className="ml-3 flex items-center px-3 py-1 text-sm text-white bg-blue-500 rounded-md focus:outline-none">
             {copied ? "Copied!" : "Copy"}
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="flex justify-end items-center mt-3">
